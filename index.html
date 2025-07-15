@@ -179,6 +179,17 @@ a, button, .nav-link {
             opacity: 1;
             transform: translateY(0);
         }
+         html {
+        cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="6" fill="none" stroke="%230f0" stroke-width="2"/><path d="M12 12 L24 24" stroke="%230f0" stroke-width="2"/></svg>') 12 12, auto;
+    }
+
+    a, button, .nav-link, #email-contact {
+        cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="6" fill="none" stroke="%23f0f" stroke-width="2"/><path d="M12 12 L24 24" stroke="%23f0f" stroke-width="2"/></svg>') 12 12, pointer;
+    }
+
+    #copy-email {
+        cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="6" fill="none" stroke="%23f0f" stroke-width="2"/><path d="M12 12 L24 24" stroke="%23f0f" stroke-width="2"/></svg>') 12 12, pointer;
+    }
     </style>
 </head>
 <body class="antialiased">
@@ -286,7 +297,7 @@ a, button, .nav-link {
         <h2 class="text-3xl md:text-4xl font-bold mb-12 glitch" data-text="my_projects">my_projects</h2>
         
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <!-- Project 1 (No changes) -->
+            <!-- Project 1 -->
             <div class="card p-6 flex flex-col">
                 <div class="flex items-center mb-4">
                     <div class="w-12 h-12 bg-green-400 bg-opacity-20 flex items-center justify-center mr-4">
@@ -302,7 +313,7 @@ a, button, .nav-link {
                     <span class="px-2 py-1 bg-green-400 bg-opacity-10 text-green-400 text-xs">ML</span>
                 </div>
                 <div class="mt-auto">
-                    <a href="https://github.com/MaZzenGamal/LCC_App-Graduation_Project" class="text-green-400 hover:text-green-300 transition-colors">
+                    <a href="https://github.com/MaZzenGamal/LCC_App-Graduation_Project" target="_blank" rel="noopener noreferrer" class="text-green-400 hover:text-green-300 transition-colors">
                         <i class="fab fa-github mr-2"></i>View on GitHub
                     </a>
                 </div>
@@ -331,15 +342,15 @@ a, button, .nav-link {
                 </div>
                 <div class="mt-auto flex justify-between items-center">
                     <div class="flex space-x-4">
-                        <a href="https://play.google.com/store/apps/details?id=com.geniept2.geniept2" class="text-green-400 hover:text-green-300 transition-colors">
+                        <a href="https://play.google.com/store/apps/details?id=com.geniept2.geniept2" target="_blank" rel="noopener noreferrer" class="text-green-400 hover:text-green-300 transition-colors">
                             <i class="fab fa-google-play mr-2"></i>Play Store
                         </a>
-                        <a href="https://apps.apple.com/eg/app/geniept/id6744561364" class="text-green-400 hover:text-green-300 transition-colors">
+                        <a href="https://apps.apple.com/eg/app/geniept/id6744561364" target="_blank" rel="noopener noreferrer" class="text-green-400 hover:text-green-300 transition-colors">
                             <i class="fab fa-app-store mr-2"></i>App Store
                         </a>
                     </div>
                     <a href="https://www.linkedin.com/posts/mazen-gamal-2b1563213_flutter-ai-fitnessapp-activity-7338617987593031681-5ttF?utm_source=share&utm_medium=member_desktop&rcm=ACoAADYCZ-UBT6J_mt80_z5v71kE8nKicgjNdz0" 
-                       class="text-green-400 hover:text-green-300 transition-colors flex items-center">
+                       target="_blank" rel="noopener noreferrer" class="text-green-400 hover:text-green-300 transition-colors flex items-center">
                         Details <i class="fas fa-arrow-right ml-2"></i>
                     </a>
                 </div>
@@ -362,11 +373,11 @@ a, button, .nav-link {
   <span class="px-2 py-1 bg-green-400 bg-opacity-10 text-green-400 text-xs">SharedPreferences</span>
                 </div>
                 <div class="mt-auto flex justify-between items-center">
-                    <a href="https://play.google.com/store/apps/details?id=games.cardsim.net" class="text-green-400 hover:text-green-300 transition-colors">
+                    <a href="https://play.google.com/store/apps/details?id=games.cardsim.net" target="_blank" rel="noopener noreferrer" class="text-green-400 hover:text-green-300 transition-colors">
                         <i class="fab fa-google-play mr-2"></i>Play Store
                     </a>
                     <a href="https://www.linkedin.com/posts/mazen-gamal-2b1563213_flutter-mobileapp-freelance-activity-7309959261709623297-GpmD?utm_source=share&utm_medium=member_desktop&rcm=ACoAADYCZ-UBT6J_mt80_z5v71kE8nKicgjNdz0" 
-                       class="text-green-400 hover:text-green-300 transition-colors flex items-center">
+                       target="_blank" rel="noopener noreferrer" class="text-green-400 hover:text-green-300 transition-colors flex items-center">
                         Details <i class="fas fa-arrow-right ml-2"></i>
                     </a>
                 </div>
@@ -394,11 +405,11 @@ a, button, .nav-link {
   <span class="px-2 py-1 bg-green-400 bg-opacity-10 text-green-400 text-xs">Real-Time Updates</span>
                 </div>
                 <div class="mt-auto flex justify-between items-center">
-                    <a href="https://play.google.com/store/apps/details?id=com.news_last_app.news_last_app" class="text-green-400 hover:text-green-300 transition-colors">
+                    <a href="https://play.google.com/store/apps/details?id=com.news_last_app.news_last_app" target="_blank" rel="noopener noreferrer" class="text-green-400 hover:text-green-300 transition-colors">
                         <i class="fab fa-google-play mr-2"></i>Play Store
                     </a>
                     <a href="https://www.linkedin.com/posts/mazen-gamal-2b1563213_flutter-freelance-mobiledevelopment-activity-7304507459996454912-XIAe?utm_source=share&utm_medium=member_desktop&rcm=ACoAADYCZ-UBT6J_mt80_z5v71kE8nKicgjNdz0" 
-                       class="text-green-400 hover:text-green-300 transition-colors flex items-center">
+                       target="_blank" rel="noopener noreferrer" class="text-green-400 hover:text-green-300 transition-colors flex items-center">
                         Details <i class="fas fa-arrow-right ml-2"></i>
                     </a>
                 </div>
@@ -407,7 +418,7 @@ a, button, .nav-link {
     </div>
 </section>
 
-<!-- Skills Section (Modified) -->
+<!-- Skills Section -->
 <section id="skills" class="py-20 section">
     <div class="container mx-auto px-4">
         <h2 class="text-3xl md:text-4xl font-bold mb-12 glitch" data-text="my_skills">my_skills</h2>
@@ -548,7 +559,7 @@ a, button, .nav-link {
     </div>
 </section>
 
-<!-- Contact Section (Modified) -->
+<!-- Contact Section -->
 <section id="contact" class="py-20 section bg-black bg-opacity-50">
     <div class="container mx-auto px-4 text-center">
         <h2 class="text-3xl md:text-4xl font-bold mb-12 glitch" data-text="contact_me">contact_me</h2>
@@ -560,25 +571,32 @@ a, button, .nav-link {
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-                <a href="mailto:mazeng18@gmail.com" class="card p-6 hover:border-green-400 transition-colors">
+                <div id="email-contact" class="card p-6 hover:border-green-400 transition-colors cursor-pointer">
                     <i class="fas fa-envelope text-green-400 text-3xl mb-4"></i>
                     <h3 class="text-xl font-bold mb-2">Email</h3>
                     <p class="text-gray-300">mazeng18@gmail.com</p>
-                </a>
+                    <div id="email-fallback" class="hidden mt-2">
+                        <p class="text-xs text-gray-400">No email client? Copy address:</p>
+                        <button id="copy-email" class="text-green-400 text-sm mt-1">
+                            <i class="far fa-copy mr-1"></i>Copy to clipboard
+                        </button>
+                        <span id="copy-success" class="text-green-400 text-xs hidden ml-2">Copied!</span>
+                    </div>
+                </div>
                 
-                <a href="https://wa.me/201221579798" class="card p-6 hover:border-green-400 transition-colors">
+                <a href="https://wa.me/201221579798" target="_blank" rel="noopener noreferrer" class="card p-6 hover:border-green-400 transition-colors">
                     <i class="fab fa-whatsapp text-green-400 text-3xl mb-4"></i>
                     <h3 class="text-xl font-bold mb-2">WhatsApp</h3>
                     <p class="text-gray-300">+20 122 157 9798</p>
                 </a>
                 
-                <a href="https://www.linkedin.com/in/mazen-gamal-2b1563213/" class="card p-6 hover:border-green-400 transition-colors">
+                <a href="https://www.linkedin.com/in/mazen-gamal-2b1563213/" target="_blank" rel="noopener noreferrer" class="card p-6 hover:border-green-400 transition-colors">
                     <i class="fab fa-linkedin text-green-400 text-3xl mb-4"></i>
                     <h3 class="text-xl font-bold mb-2">LinkedIn</h3>
                     <p class="text-gray-300">/mazen-gamal</p>
                 </a>
                 
-                <a href="https://github.com/MaZzenGamal" class="card p-6 hover:border-green-400 transition-colors">
+                <a href="https://github.com/MaZzenGamal" target="_blank" rel="noopener noreferrer" class="card p-6 hover:border-green-400 transition-colors">
                     <i class="fab fa-github text-green-400 text-3xl mb-4"></i>
                     <h3 class="text-xl font-bold mb-2">GitHub</h3>
                     <p class="text-gray-300">/MaZzenGamal</p>
@@ -684,6 +702,58 @@ a, button, .nav-link {
         }
     }
     blinkCursor();
+
+    // Make ALL external links open in new tab
+    document.querySelectorAll('a').forEach(link => {
+        // Skip mailto links
+        if (link.href.startsWith('mailto:')) return;
+        
+        // Skip anchor links (internal page links)
+        if (link.href.startsWith('#')) return;
+        
+        // Skip if it's the same domain
+        if (link.hostname === window.location.hostname) return;
+        
+        // For all other links, open in new tab
+        link.setAttribute('target', '_blank');
+        link.setAttribute('rel', 'noopener noreferrer');
+    });
+    
+// Enhanced email contact functionality
+const emailContact = document.getElementById('email-contact');
+const emailFallback = document.getElementById('email-fallback');
+const copyEmailBtn = document.getElementById('copy-email');
+const copySuccess = document.getElementById('copy-success');
+
+emailContact.addEventListener('click', function() {
+    // Try to open default email client
+    window.location.href = 'mailto:mazeng18@gmail.com';
+    
+    // If no email client is detected after a short delay, show fallback
+    setTimeout(() => {
+        if (!document.hidden) {
+            emailFallback.classList.remove('hidden');
+        }
+    }, 500);
+});
+
+// Copy email to clipboard
+copyEmailBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    navigator.clipboard.writeText('mazeng18@gmail.com').then(() => {
+        copySuccess.classList.remove('hidden');
+        setTimeout(() => {
+            copySuccess.classList.add('hidden');
+        }, 2000);
+    });
+});
+
+// Close fallback when clicking elsewhere
+document.addEventListener('click', function(e) {
+    if (!emailContact.contains(e.target)) {
+        emailFallback.classList.add('hidden');
+    }
+});
 </script>
 </body>
 </html>
