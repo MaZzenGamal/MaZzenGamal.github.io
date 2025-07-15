@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mazen Gamal | Flutter Developer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <style>
+    html {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="6" fill="none" stroke="%230f0" stroke-width="2"/><path d="M12 12 L24 24" stroke="%230f0" stroke-width="2"/></svg>') 12 12, auto;
+}
+
+a, button, .nav-link {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="6" fill="none" stroke="%23f0f" stroke-width="2"/><path d="M12 12 L24 24" stroke="%23f0f" stroke-width="2"/></svg>') 12 12, pointer;
+}
+        body {
+            font-family: 'Space Mono', monospace;
+            background-color: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        h1, h2, h3, .neon-text {
+            font-family: 'Major Mono Display', monospace;
+        }
+        .terminal-line {
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        .terminal-line:before {
+            content: ">";
+            position: absolute;
+            left: 0;
+            color: #0f0;
+        }
+        .glitch {
+            position: relative;
+        }
+        .glitch:before, .glitch:after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+        }
+        .glitch:before {
+            color: #0ff;
+            z-index: -1;
+            animation: glitch-effect 3s infinite;
+        }
+        .glitch:after {
+            color: #f0f;
+            z-index: -2;
+            animation: glitch-effect 2s infinite reverse;
+        }
+        @keyframes glitch-effect {
+            0% { transform: translate(0); }
+            20% { transform: translate(-3px, 3px); }
+            40% { transform: translate(-3px, -3px); }
+            60% { transform: translate(3px, 3px); }
+            80% { transform: translate(3px, -3px); }
+            100% { transform: translate(0); }
+        }
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                rgba(0, 255, 0, 0.1) 1px,
+                transparent 1px
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 1000;
+            animation: scanline 8s linear infinite;
+        }
+        @keyframes scanline {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 100%; }
+        }
+        .grid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 0, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 0, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+        }
+        .card {
+            background: rgba(15, 15, 15, 0.8);
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .card:hover {
+            border-color: rgba(0, 255, 0, 0.8);
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+        }
+        .card:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(0, 255, 0, 0.1),
+                transparent
+            );
+            transition: all 0.6s ease;
+        }
+        .card:hover:before {
+            left: 100%;
+        }
+        .nav-link {
+            position: relative;
+        }
+        .nav-link:after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #0f0;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        .active:after {
+            width: 100%;
+        }
+        .typewriter {
+            overflow: hidden;
+            border-right: 3px solid #0f0;
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: 0.15em;
+            animation: 
+                typing 3.5s steps(40, end),
+                blink-caret 0.75s step-end infinite;
+        }
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #0f0 }
+        }
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
+        }
+        .section {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <!-- Visual Effects -->
+    <div class="grid-bg"></div>
+    <div class="scanlines"></div>
+
+    <!-- Minimalist Navigation -->
+    <nav class="fixed top-0 left-0 w-full p-4 z-50 bg-black bg-opacity-80 backdrop-blur-sm">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="text-xl font-bold neon-text" data-text="Mazen_Gamal">Mazen_Gamal</div>
+            <div class="hidden md:flex space-x-8">
+                <a href="#home" class="nav-link active">~/home</a>
+                <a href="#about" class="nav-link">~/about</a>
+                <a href="#projects" class="nav-link">~/projects</a>
+                <a href="#skills" class="nav-link">~/skills</a>
+                <a href="#contact" class="nav-link">~/contact</a>
+            </div>
+            <button id="menu-toggle" class="md:hidden text-green-400">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+        <div id="mobile-menu" class="md:hidden bg-black p-4 hidden">
+            <div class="flex flex-col space-y-4">
+                <a href="#home" class="nav-link active">~/home</a>
+                <a href="#about" class="nav-link">~/about</a>
+                <a href="#projects" class="nav-link">~/projects</a>
+                <a href="#skills" class="nav-link">~/skills</a>
+                <a href="#contact" class="nav-link">~/contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden">
+        <div class="container mx-auto px-4 text-center">
+           
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 glitch" data-text="MAZEN_GAMAL">MAZEN_GAMAL</h1>
+            <h2 class="text-2xl md:text-3xl mb-8 text-green-400 pulse">FLUTTER DEVELOPER</h2>
+            <div class="terminal-line text-left max-w-3xl mx-auto">
+                <span class="text-green-400">$ </span>
+                <span>Building performant cross-platform experiences with Dart & Flutter</span>
+            </div>
+            <div class="mt-12">
+                <a href="#projects" class="inline-block border border-green-400 text-green-400 px-8 py-3 hover:bg-green-400 hover:text-black transition-all duration-300">
+                    view_projects
+                </a>
+            </div>
+        </div>
+        <div class="absolute bottom-8 left-0 w-full text-center animate-bounce">
+            <a href="#about" class="text-green-400 text-2xl">
+                <i class="fas fa-chevron-down"></i>
+            </a>
+        </div>
+    </section>
+
+<!-- About Section -->
+<section id="about" class="py-20 section">
+  <div class="container mx-auto px-4">
+    <h2 class="text-3xl md:text-4xl font-bold mb-12 glitch" data-text="about_me">about_me</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="col-span-1 flex justify-center">
+        <img src="https://i.postimg.cc/vHwqwcpp/mbmb.jpg" alt="Mazen Gamal" class="w-64 h-64 object-cover border-2 border-green-400">
+      </div>
+      <div class="col-span-1 md:col-span-2">
+        <div class="terminal-line mb-4">
+          <span class="text-green-400">$ mazen --info</span>
+        </div>
+        <div class="terminal-line mb-4">
+          <span class="text-green-400">> </span><span>Computer Science graduate from Benha University</span>
+        </div>
+        <div class="terminal-line mb-4">
+          <span class="text-green-400">> </span><span>Flutter developer focused on modern, responsive mobile apps</span>
+        </div>
+        <div class="terminal-line mb-4">
+          <span class="text-green-400">> </span><span>Experience with AI-powered features and tools</span>
+        </div>
+        <div class="terminal-line mb-4">
+          <span class="text-green-400">> </span><span>Built secure payment apps with real-world use cases</span>
+        </div>
+        <div class="terminal-line mb-4">
+          <span class="text-green-400">> </span><span>Developed live news platforms with fast content delivery</span>
+        </div>
+        <div class="terminal-line mb-4">
+          <span class="text-green-400">> </span><span>Focus on clean code, performance, and scalability</span>
+        </div>
+        <div class="terminal-line mb-4">
+          <span class="text-green-400">> </span><span>Committed to learning, growth, and quality UX</span>
+        </div>
+        <div class="terminal-line mb-4">
+          <span class="text-green-400">> </span><span>Collaborates well in teams and delivers results</span>
+        </div>
+        <div class="terminal-line">
+          <span class="text-green-400">$ </span><span class="text-green-400 blink">_</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Projects Section -->
+<section id="projects" class="py-20 section bg-black bg-opacity-50">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl md:text-4xl font-bold mb-12 glitch" data-text="my_projects">my_projects</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Project 1 (No changes) -->
+            <div class="card p-6 flex flex-col">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-green-400 bg-opacity-20 flex items-center justify-center mr-4">
+                        <i class="fas fa-stethoscope text-green-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold">LCC_App</h3>
+                </div>
+                <p class="mb-4 text-gray-300 flex-grow">Machine learning-powered mobile app for lung and colon cancer detection with doctor/client profiles and real-time communication.</p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="px-2 py-1 bg-green-400 bg-opacity-10 text-green-400 text-xs">Flutter</span>
+                    <span class="px-2 py-1 bg-green-400 bg-opacity-10 text-green-400 text-xs">Firebase</span>
+                    <span class="px-2 py-1 bg-green-400 bg-opacity-10 text-green-400 text-xs">Cubit</span>
+                    <span class="px-2 py-1 bg-green-400 bg-opacity-10 text-green-400 text-xs">ML</span>
+                </div>
+                <div class="mt-auto">
+                    <a href="https://github.com/MaZzenGamal/LCC_App-Graduation_Project" class="text-green-400 hover:text-green-300 transition-colors">
+                        <i class="fab fa-github mr-2"></i>View on GitHub
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Project 2 (GeniePT with Details) -->
+            <div class="card p-6 flex flex-col">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-green-400 bg-opacity-20 flex items-center justify-center mr-4">
+                        <i class="fas fa-dumbbell text-green-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold">GeniePT</h3>
+                </div>
+                <p class="mb-4 text-gray-300 flex-grow">AI-driven fitness app with personalized workout/nutrition plans, progress tracking, and live support.</p>
+                <div class="flex flex-wrap gap-2 mb-4">
+<span class="px-2 py-1 bg-green-400 bg-opacity-10 text-green-400 text-xs">Flutter</span>
+<span class="px-2 py-1 bg-green-400 bg-opacity-10 text-green-400 text-xs">API</span>
+  <span class="px-2 py-1 bg-green-400 bg-opacity-10 text-green-400 text-xs">AI</span>
+  <span class="px-2 py-1 bg-green-400 bg-opacity-10 text-green-400 text-xs">Fitness</span>
+  <span class="px-2 py-1 bg-green-400 bg-opacity-10 text-green-400 text-xs">Clean Architecture</span>
+  <span class="px-2 py-1 bg-green-400 bg-opacity-10 text-green-400 text-xs">REST API</span>
+  <span class="px-2 py-1 bg-green-400 bg-opacity-10 text-green-400 text-xs">State Management</span>
+  <span class="px-2 py-1 bg-green-400 bg-opacity-10 text-green-400 text-xs">Localization</span>
+  <span class="px-2 py-1 bg-green-400 bg-opacity-10 text-green-400 text-xs">Push Notifications</span>
+  <span class="px-2 py-1 bg-green-400 bg-opacity-10 text-green-400 text-xs">Dynamic UI</span>
+                </div>
+                <div class="mt-auto flex justify-between items-center">
+                    <div class="flex space-x-4">
+                        <a href="https://play.google.com/store/apps/details?id=com.geniept2.geniept2" class="text-green-400 hover:text-green-300 transition-colors">
+                            <i class="fab fa-google-play mr-2"></i>Play Store
+                        </a>
+                        <a href="https://apps.apple.com/eg/app/geniept/id6744561364" class="text-green-400 hover:text-green-300 transition-colors">
+                            <i class="fab fa-app-store mr-2"></i>App Store
+                        </a>
+                    </div>
+                    <a href="https://www.linkedin.com/posts/mazen-gamal-2b1563213_flutter-ai-fitnessapp-activity-7338617987593031681-5ttF?utm_source=share&utm_medium=member_desktop&rcm=ACoAADYCZ-UBT6J_mt80_z5v71kE8nKicgjNdz0" 
+                       class="text-green-400 hover:text-green-300 transition-colors flex items-center">
+                        Details <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Project 3 (CardSim with Details) -->
+            <div class="card p-6 flex flex-col">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-green-400 bg-opacity-20 flex items-center justify-center mr-4">
+                        <i class="fas fa-credit-card text-green-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold">CardSim</h3>
+                </div>
+                <p class="mb-4 text-gray-300 flex-grow">Secure mobile app for recharging gaming and app accounts with instant transactions and global currency support.</p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="px-2 py-1 bg-green-400 bg-opacity-10 text-green-400 text-xs">Flutter</span>
+  <span class="px-2 py-1 bg-green-400 bg-opacity-10 text-green-400 text-xs">Cubit</span>
+  <span class="px-2 py-1 bg-green-400 bg-opacity-10 text-green-400 text-xs">Dio</span>
+  <span class="px-2 py-1 bg-green-400 bg-opacity-10 text-green-400 text-xs">Secure Storage</span>
+  <span class="px-2 py-1 bg-green-400 bg-opacity-10 text-green-400 text-xs">SharedPreferences</span>
+                </div>
+                <div class="mt-auto flex justify-between items-center">
+                    <a href="https://play.google.com/store/apps/details?id=games.cardsim.net" class="text-green-400 hover:text-green-300 transition-colors">
+                        <i class="fab fa-google-play mr-2"></i>Play Store
+                    </a>
+                    <a href="https://www.linkedin.com/posts/mazen-gamal-2b1563213_flutter-mobileapp-freelance-activity-7309959261709623297-GpmD?utm_source=share&utm_medium=member_desktop&rcm=ACoAADYCZ-UBT6J_mt80_z5v71kE8nKicgjNdz0" 
+                       class="text-green-400 hover:text-green-300 transition-colors flex items-center">
+                        Details <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Project 4 (Ajman News with Details) -->
+            <div class="card p-6 flex flex-col">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-green-400 bg-opacity-20 flex items-center justify-center mr-4">
+                        <i class="fas fa-newspaper text-green-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold">Ajman News</h3>
+                </div>
+                <p class="mb-4 text-gray-300 flex-grow">Comprehensive platform for Ajman residents delivering news and community event updates.</p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="px-2 py-1 bg-green-400 bg-opacity-10 text-green-400 text-xs">Flutter</span>
+                    <span class="px-2 py-1 bg-green-400 bg-opacity-10 text-green-400 text-xs">Firebase</span>
+                
+  <span class="px-2 py-1 bg-green-400 bg-opacity-10 text-green-400 text-xs">MVVM</span>
+  <span class="px-2 py-1 bg-green-400 bg-opacity-10 text-green-400 text-xs">Cubit</span>
+  <span class="px-2 py-1 bg-green-400 bg-opacity-10 text-green-400 text-xs">Firestore</span>
+  <span class="px-2 py-1 bg-green-400 bg-opacity-10 text-green-400 text-xs">SharedPreferences</span>
+  <span class="px-2 py-1 bg-green-400 bg-opacity-10 text-green-400 text-xs">GetIt</span>
+  <span class="px-2 py-1 bg-green-400 bg-opacity-10 text-green-400 text-xs">State Management</span>
+  <span class="px-2 py-1 bg-green-400 bg-opacity-10 text-green-400 text-xs">Real-Time Updates</span>
+                </div>
+                <div class="mt-auto flex justify-between items-center">
+                    <a href="https://play.google.com/store/apps/details?id=com.news_last_app.news_last_app" class="text-green-400 hover:text-green-300 transition-colors">
+                        <i class="fab fa-google-play mr-2"></i>Play Store
+                    </a>
+                    <a href="https://www.linkedin.com/posts/mazen-gamal-2b1563213_flutter-freelance-mobiledevelopment-activity-7304507459996454912-XIAe?utm_source=share&utm_medium=member_desktop&rcm=ACoAADYCZ-UBT6J_mt80_z5v71kE8nKicgjNdz0" 
+                       class="text-green-400 hover:text-green-300 transition-colors flex items-center">
+                        Details <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Skills Section (Modified) -->
+<section id="skills" class="py-20 section">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl md:text-4xl font-bold mb-12 glitch" data-text="my_skills">my_skills</h2>
+        
+        <!-- Technical Skills -->
+        <h3 class="text-2xl font-bold mb-6 text-green-400">Technical Skills</h3>
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+            <div class="card p-6 text-center">
+                <div class="w-16 h-16 bg-green-400 bg-opacity-20 flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-code text-green-400 text-2xl"></i>
+                </div>
+                <h3 class="font-bold">Dart</h3>
+            </div>
+            
+            <div class="card p-6 text-center">
+                <div class="w-16 h-16 bg-green-400 bg-opacity-20 flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-mobile-alt text-green-400 text-2xl"></i>
+                </div>
+                <h3 class="font-bold">Flutter</h3>
+            </div>
+            
+            <div class="card p-6 text-center">
+                <div class="w-16 h-16 bg-green-400 bg-opacity-20 flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-cubes text-green-400 text-2xl"></i>
+                </div>
+                <h3 class="font-bold">OOP</h3>
+            </div>
+            
+            <div class="card p-6 text-center">
+                <div class="w-16 h-16 bg-green-400 bg-opacity-20 flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-server text-green-400 text-2xl"></i>
+                </div>
+                <h3 class="font-bold">APIs</h3>
+            </div>
+            
+            <div class="card p-6 text-center">
+                <div class="w-16 h-16 bg-green-400 bg-opacity-20 flex items-center justify-center mx-auto mb-4">
+                    <i class="fab fa-google text-green-400 text-2xl"></i>
+                </div>
+                <h3 class="font-bold">Firebase</h3>
+            </div>
+            
+            <div class="card p-6 text-center">
+                <div class="w-16 h-16 bg-green-400 bg-opacity-20 flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-cogs text-green-400 text-2xl"></i>
+                </div>
+                <h3 class="font-bold">Bloc & Cubit</h3>
+            </div>
+            
+            <div class="card p-6 text-center">
+                <div class="w-16 h-16 bg-green-400 bg-opacity-20 flex items-center justify-center mx-auto mb-4">
+                    <i class="fab fa-git-alt text-green-400 text-2xl"></i>
+                </div>
+                <h3 class="font-bold">Git & GitHub</h3>
+            </div>
+            
+            <div class="card p-6 text-center">
+                <div class="w-16 h-16 bg-green-400 bg-opacity-20 flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-layer-group text-green-400 text-2xl"></i>
+                </div>
+                <h3 class="font-bold">MVVM</h3>
+            </div>
+            
+            <div class="card p-6 text-center">
+                <div class="w-16 h-16 bg-green-400 bg-opacity-20 flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-exchange-alt text-green-400 text-2xl"></i>
+                </div>
+                <h3 class="font-bold">Http & Dio</h3>
+            </div>
+            
+            <div class="card p-6 text-center">
+                <div class="w-16 h-16 bg-green-400 bg-opacity-20 flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-tools text-green-400 text-2xl"></i>
+                </div>
+                <h3 class="font-bold">Postman</h3>
+            </div>
+            
+            <div class="card p-6 text-center">
+                <div class="w-16 h-16 bg-green-400 bg-opacity-20 flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-object-group text-green-400 text-2xl"></i>
+                </div>
+                <h3 class="font-bold">Adaptive UI</h3>
+            </div>
+        </div>
+        
+        <!-- Interpersonal Competencies -->
+        <h3 class="text-2xl font-bold mt-12 mb-6 text-green-400">Interpersonal Competencies</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="card p-6 text-center">
+                <div class="w-16 h-16 bg-green-400 bg-opacity-20 flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-users text-green-400 text-2xl"></i>
+                </div>
+                <h3 class="font-bold">Working Cooperatively</h3>
+            </div>
+            
+            <div class="card p-6 text-center">
+                <div class="w-16 h-16 bg-green-400 bg-opacity-20 flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-check-circle text-green-400 text-2xl"></i>
+                </div>
+                <h3 class="font-bold">Acting Responsibly</h3>
+            </div>
+            
+            <div class="card p-6 text-center">
+                <div class="w-16 h-16 bg-green-400 bg-opacity-20 flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-lightbulb text-green-400 text-2xl"></i>
+                </div>
+                <h3 class="font-bold">Critical Thinking</h3>
+            </div>
+            
+            <div class="card p-6 text-center">
+                <div class="w-16 h-16 bg-green-400 bg-opacity-20 flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-book-open text-green-400 text-2xl"></i>
+                </div>
+                <h3 class="font-bold">Willing to Learn</h3>
+            </div>
+            
+            <div class="card p-6 text-center">
+                <div class="w-16 h-16 bg-green-400 bg-opacity-20 flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-rocket text-green-400 text-2xl"></i>
+                </div>
+                <h3 class="font-bold">Self-Motivated</h3>
+            </div>
+            
+            <div class="card p-6 text-center">
+                <div class="w-16 h-16 bg-green-400 bg-opacity-20 flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-comments text-green-400 text-2xl"></i>
+                </div>
+                <h3 class="font-bold">Communication</h3>
+            </div>
+            
+            <div class="card p-6 text-center">
+                <div class="w-16 h-16 bg-green-400 bg-opacity-20 flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-user-friends text-green-400 text-2xl"></i>
+                </div>
+                <h3 class="font-bold">Team Player</h3>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section (Modified) -->
+<section id="contact" class="py-20 section bg-black bg-opacity-50">
+    <div class="container mx-auto px-4 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-12 glitch" data-text="contact_me">contact_me</h2>
+        
+        <div class="max-w-2xl mx-auto">
+            <div class="terminal-line text-left mb-8">
+                <span class="text-green-400">$ </span>
+                <span>Hire a Flutter Developer You Can Count On</span>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                <a href="mailto:mazeng18@gmail.com" class="card p-6 hover:border-green-400 transition-colors">
+                    <i class="fas fa-envelope text-green-400 text-3xl mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">Email</h3>
+                    <p class="text-gray-300">mazeng18@gmail.com</p>
+                </a>
+                
+                <a href="https://wa.me/201221579798" class="card p-6 hover:border-green-400 transition-colors">
+                    <i class="fab fa-whatsapp text-green-400 text-3xl mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">WhatsApp</h3>
+                    <p class="text-gray-300">+20 122 157 9798</p>
+                </a>
+                
+                <a href="https://www.linkedin.com/in/mazen-gamal-2b1563213/" class="card p-6 hover:border-green-400 transition-colors">
+                    <i class="fab fa-linkedin text-green-400 text-3xl mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">LinkedIn</h3>
+                    <p class="text-gray-300">/mazen-gamal</p>
+                </a>
+                
+                <a href="https://github.com/MaZzenGamal" class="card p-6 hover:border-green-400 transition-colors">
+                    <i class="fab fa-github text-green-400 text-3xl mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">GitHub</h3>
+                    <p class="text-gray-300">/MaZzenGamal</p>
+                </a>
+            </div>
+            
+            <div class="terminal-line text-left">
+                <span class="text-green-400 blink">_</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Footer -->
+    <footer class="py-8 border-t border-gray-800 text-center text-gray-400">
+        <div class="container mx-auto px-4">
+            <div class="terminal-line inline-block">
+                <span class="text-green-400">$ </span>
+                <span>© 2025 Mazen Gamal. All systems operational.</span>
+            </div>
+        </div>
+    </footer>
+
+<script>
+    // Mobile menu toggle
+    document.getElementById('menu-toggle').addEventListener('click', function() {
+        document.getElementById('mobile-menu').classList.toggle('hidden');
+    });
+
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Close mobile menu if open
+            document.getElementById('mobile-menu').classList.add('hidden');
+            
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                // Calculate the target position with offset for fixed header
+                const headerHeight = document.querySelector('nav').offsetHeight;
+                const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+                
+                // Update URL without jumping
+                history.pushState(null, null, targetId);
+            }
+        });
+    });
+
+    // Highlight active nav link
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    window.addEventListener('scroll', () => {
+        let current = '';
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            const headerHeight = document.querySelector('nav').offsetHeight;
+            
+            if (pageYOffset >= sectionTop - headerHeight - 100) {
+                current = section.getAttribute('id');
+            }
+        });
+        
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href').includes(current)) {
+                link.classList.add('active');
+            }
+        });
+    });
+
+    // Section animation
+    const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.section').forEach(section => {
+        sectionObserver.observe(section);
+    });
+
+    // Blinking cursor effect
+    function blinkCursor() {
+        const cursor = document.querySelector('.blink');
+        if (cursor) {
+            setInterval(() => {
+                cursor.style.visibility = (cursor.style.visibility === 'hidden' ? 'visible' : 'hidden');
+            }, 500);
+        }
+    }
+    blinkCursor();
+</script>
+</body>
+</html>
